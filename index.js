@@ -17,6 +17,29 @@ const openai = new OpenAI({
 })
 
 
+// Middleware to check if the user is a member of the specified channel
+bot.use(async (ctx, next) => {
+  try {
+    const channel = '@multilevel_speakApp';
+    const chatMember = await ctx.telegram.getChatMember(channel, ctx.from.id);
+    const isSubscribed = ['administrator', 'member', 'owner', 'creator'].includes(chatMember.status);
+
+    if (isSubscribed) {
+      return next(); // Continue to the next middleware
+    } else {
+      ctx.reply("Botdan foydalanish uchun kanalimizga obuna bo'ling", {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: "Kanalga obuna bo'lish", url: "https://t.me/multilevel_speakApp" }]
+          ]
+        }
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 
 
 bot.start((ctx)=>{
