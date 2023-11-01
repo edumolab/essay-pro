@@ -1,12 +1,10 @@
 const {bot, openai, keyboard} = require('./index')
 const {session, Stage, Markup}= require('telegraf')
 const Scene = require ('telegraf/scenes/base')
-var translate = require('yandex-translate')('trnsl.1.1.20230710T104110Z.008413911fef112b.b91a322675e3cfb27eb572260cda1d86909276ae');
 
 
 const essayScene = new Scene('essayscene')
 const correctorScene = new Scene('essaycorrector')
-const tarjimonScene = new Scene('tarjimonscene')
 
 
 essayScene.enter(ctx=>ctx.reply('✍️ Write your essay question to generate'))
@@ -57,28 +55,15 @@ essayScene.on('text', async (ctx)=>{
       })
 
 
-      //Tarjimon scene
-
-      tarjimonScene.enter(ctx=>ctx.reply('O\'zbek tilidagi biror bir gapni kiriting.'))
-
-      tarjimonScene.on('text', async (ctx)=>{
-        const translatedWord = ctx.message.text
-        translate.translate(translatedWord, { to: 'en' }, function(err, res) {
-            ctx.replyWithHTML(`<b>${res.text[0]}</b>`);
-             ctx.scene.leave();
-          });
-          
-      })
 
 
 // Create a stage and register the scene
-const stage = new Stage([essayScene, correctorScene, tarjimonScene]);
+const stage = new Stage([essayScene, correctorScene]);
 bot.use(session());
 bot.use(stage.middleware());
 
 bot.hears('📝 Essay Generator', (ctx) => ctx.scene.enter('essayscene'));
 bot.hears('✅ Essay Corrector', (ctx) => ctx.scene.enter('essaycorrector'));
-bot.hears('🌐 Tarjimon', (ctx) => ctx.scene.enter('tarjimonscene'));
 
 
 
