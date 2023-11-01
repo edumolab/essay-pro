@@ -22,7 +22,7 @@ bot.start(async (ctx)=>{
     ctx.replyWithChatAction('typing')
     ctx.re
     setTimeout(()=>{
-        ctx.replyWithHTML(`Assalomu alaykum, <b>${ctx.message.chat.first_name}</b>. Men Essay yozib beruvchi va tarjimon botman. Menyulardan birini tanlang: 👇`, {
+        ctx.replyWithHTML(`Assalomu alaykum, <b>${ctx.message.chat.first_name}</b>. Men Essay yozib beruvchi botman. Menyulardan birini tanlang: 👇`, {
             reply_markup: keyboard,
           });
     },200)    
