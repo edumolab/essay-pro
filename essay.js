@@ -65,6 +65,7 @@ essayScene.on('text', async (ctx)=>{
         const translatedWord = ctx.message.text
         translate.translate(translatedWord, { to: 'en' }, function(err, res) {
             ctx.replyWithHTML(`<b>${res.text[0]}</b>`);
+             ctx.scene.leave();
           });
           
       })
