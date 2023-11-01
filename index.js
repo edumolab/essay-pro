@@ -42,7 +42,7 @@ bot.use(async (ctx, next) => {
 
 
 
-bot.start((ctx)=>{
+bot.start(async (ctx)=>{
     ctx.replyWithChatAction('typing')
     ctx.re
     setTimeout(()=>{
