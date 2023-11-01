@@ -5,8 +5,7 @@ const { Keyboard  } = require('telegram-keyboard')
 dotenv.config()
 
 const keyboard = Markup.keyboard([
-    ['📝 Essay Generator', '✅ Essay Corrector'],
-    [ '🌐 Tarjimon']
+    ['📝 Essay Generator', '✅ Essay Corrector']
   ]).oneTime().resize();
 
 
